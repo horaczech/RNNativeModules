@@ -15,5 +15,5 @@ class MyAppPackage : ReactPackage {
 
     override fun createNativeModules(
         reactContext: ReactApplicationContext
-    ): MutableList<NativeModule> = listOf(DarkModeModule(reactContext)).toMutableList()
+    ): MutableList<NativeModule> = listOf(DarkModeModule(reactContext), CalendarModule(reactContext)).toMutableList()
 }

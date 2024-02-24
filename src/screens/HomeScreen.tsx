@@ -2,17 +2,18 @@ import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   Pressable,
+  View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import DarkMode from '../modules/DarkMode';
+import {RootStackScreenProps} from '../types/navigation.ts';
 
-function HomeScreen() {
+function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
   const [isDarkMode, setIsDarkMode] = useState<null | boolean>(null);
 
   const handleDarkMode = async () => {
@@ -30,7 +31,6 @@ function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor={Colors.lighter} />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={styles.content}>
@@ -44,9 +44,18 @@ function HomeScreen() {
           <Text style={styles.refreshText}>refresh</Text>
         </Pressable>
         <Text style={styles.title}>Native Modules examples</Text>
-        <Text style={styles.text}>{`Dark mode: ${
-          isDarkMode ? 'on' : 'off'
-        }`}</Text>
+        <View style={styles.item}>
+          <Text style={styles.text}>{`Dark mode: ${
+            isDarkMode ? 'on' : 'off'
+          }`}</Text>
+        </View>
+        <Pressable style={styles.item}>
+          <Text
+            onPress={() => navigation.navigate('NewCalendarEvent')}
+            style={styles.itemText}>
+            Add event to calendar
+          </Text>
+        </Pressable>
       </ScrollView>
     </SafeAreaView>
   );
@@ -85,6 +94,20 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginLeft: 5,
     color: '#00008B',
+  },
+  item: {
+    marginTop: 20,
+    borderBottomColor: '#5e5e5e',
+    borderBottomWidth: 1,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    backgroundColor: '#ececec',
+  },
+  itemText: {
+    fontSize: 16,
+    color: 'black',
   },
 });
 
